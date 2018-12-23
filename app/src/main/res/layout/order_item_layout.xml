@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
             android:id="@+id/order_item_text_view_ngay_dat"/>
     </LinearLayout>
     <LinearLayout
@@ -90,22 +89,26 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:weightSum="5">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:id="@+id/order_item_button_xem_chi_tiet"
-            tools:ignore="NestedWeights"
-            android:text="@string/order_item_text_view_xem_chi_tiet"/>
+        android:weightSum="6">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_weight="2"
+            tools:ignore="NestedWeights" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:layout_weight="2"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/order_item_text_view_so_tien_thu"/>
+            android:layout_gravity="end"
+            android:layout_weight="2"
+            android:id="@+id/order_item_text_view_gia_van_chuyen"/>
     </LinearLayout>
 </LinearLayout>

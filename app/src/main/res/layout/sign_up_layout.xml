@@ -42,7 +42,15 @@
                 android:hint="@string/str_name"
                 android:textAlignment="center"
                 android:textSize="23sp" />
-
+            <EditText
+                android:id="@+id/cmndEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:hint="Chứng minh nhân dân"
+                android:textAlignment="center"
+                android:textSize="23sp"
+                android:inputType="numberDecimal"/>
             <EditText
                 android:id="@+id/phoneEdit"
                 android:layout_width="match_parent"

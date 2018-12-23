@@ -1,4 +1,4 @@
-package com.example.niot.deliveryshipperandroidapp;
+package com.example.niot.deliveryshipperandroidapp.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

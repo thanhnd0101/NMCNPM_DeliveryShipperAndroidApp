@@ -8,14 +8,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.niot.deliveryshipperandroidapp.Model.Shipper;
 import com.example.niot.deliveryshipperandroidapp.retrofit.CvlApi;
 import com.example.niot.deliveryshipperandroidapp.retrofit.RetrofitObject;
 
 import java.io.IOException;
 import java.util.HashMap;
 
+import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -23,11 +28,13 @@ public class SignUpActivity extends AppCompatActivity {
     private String phone;
     private String email;
     private String password;
+    private String cmnd;
 
     EditText nameET;
     EditText phoneET;
     EditText emailET;
     EditText passwordET;
+    EditText cmndET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
         phoneET = findViewById(R.id.phoneEdit);
         passwordET = findViewById(R.id.passwordEdit);
         emailET = findViewById(R.id.emailEdit);
+        cmndET = findViewById(R.id.cmndEdit);
     }
 
     private void getInput(){
@@ -45,6 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
         phone = phoneET.getText().toString();
         password = phoneET.getText().toString();
         email = emailET.getText().toString();
+        cmnd = cmndET.getText().toString();
     }
 
     private boolean checkInput(){
@@ -74,12 +83,14 @@ public class SignUpActivity extends AppCompatActivity {
             Map<String, String> info = new HashMap<String, String>();
             info.put("phone", phone);
             info.put("ten", name);
+            info.put("cmnd",cmnd);
             info.put("pass", password);
             info.put("email", email);
 
-            retrofit.create(CvlApi.class).newUser(info).enqueue(new Callback<List<User>>() {
+            retrofit.create(CvlApi.class).newUser(info).enqueue(new Callback<List<Shipper>>() {
+
                 @Override
-                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                public void onResponse(Call<List<Shipper>> call, Response<List<Shipper>> response) {
                     String msg;
                     if(response.body() != null){
                         if(response.body().size() > 0)
@@ -93,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<List<User>> call, Throwable t) {
+                public void onFailure(Call<List<Shipper>> call, Throwable t) {
                     Toast.makeText(SignUpActivity.this, "Failed3!", Toast.LENGTH_SHORT).show();
 
                     if (t instanceof IOException) {

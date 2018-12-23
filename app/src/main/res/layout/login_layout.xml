@@ -58,7 +58,8 @@
                     android:layout_weight="1"
                     android:id="@+id/login_layout_edit_text_sdt"
                     android:hint="@string/login_edit_text_sdt_hint"
-                    tools:ignore="Autofill,TextFields" />
+                    tools:ignore="Autofill,TextFields"
+                    android:inputType="numberDecimal"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
