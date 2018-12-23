@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
                             if(response.body() != null){
                                 List<Shipper> shippers = response.body();
 
-                                if(shippers.size() > 0)
+                                if(shippers.size() > 0) {
                                     msg = shippers.get(0).toString();
+                                    LoginToShipper();
+                                }
                                 else{
                                     msg = "Wrong phone number or password!";
                                 }
@@ -70,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
         // Hide the keyboard if user click button
         InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+    }
+
+    private void LoginToShipper() {
+        Intent intent = new Intent(MainActivity.this,ContentMainActivity.class);
+        this.startActivity(intent);
     }
 
     public void registerBtnClicked(View view) {

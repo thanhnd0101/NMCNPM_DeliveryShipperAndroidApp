@@ -45,13 +45,15 @@ public class OrderNeedDeliveryRecyclerViewAdapter extends RecyclerView.Adapter<R
 
     private void configureOrderNeedDeliveryViewHolder(OrderNeedDeliveryViewHolder orderNeedDeliveryViewHolder, int position) {
         BillsResponse billsResponse = ds_hoa_don.get(position);
+        if(billsResponse.getQuanan().getAddress() == null){
+            billsResponse.getQuanan().setAddress("aaaa");
+        }
         orderNeedDeliveryViewHolder.setOrderNeedDeliveryViewHolder(
                 String.valueOf(billsResponse.getHoadon().getIdHoaDon()),
                 billsResponse.getHoadon().getTGKhachHangDat(),
                 billsResponse.getQuanan().getAddress(),
                 billsResponse.getHoadon().getDiaChiaGiao(),
                 String.valueOf(billsResponse.getHoadon().getGiaVanCHuyen()));
-
     }
 
     @Override

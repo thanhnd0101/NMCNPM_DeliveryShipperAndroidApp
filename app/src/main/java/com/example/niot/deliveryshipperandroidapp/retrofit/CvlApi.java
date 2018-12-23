@@ -1,6 +1,7 @@
 package com.example.niot.deliveryshipperandroidapp.retrofit;
 
 import com.example.niot.deliveryshipperandroidapp.Model.Shipper;
+import com.example.niot.deliveryshipperandroidapp.Response.BillsResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -15,4 +16,7 @@ public interface CvlApi {
 
     @GET("/login/shipper")
     Call<List<Shipper>> logginShipper(@QueryMap Map<String, String> info);
+
+    @GET("/hoa_don")
+    Call<List<BillsResponse>> billNeedDelivery(@QueryMap Map<String, String> info);
 }

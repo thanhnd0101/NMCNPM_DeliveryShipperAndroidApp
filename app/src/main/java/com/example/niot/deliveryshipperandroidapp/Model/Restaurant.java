@@ -3,7 +3,9 @@ package com.example.niot.deliveryshipperandroidapp.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Restaurant extends Account {
+import java.io.Serializable;
+
+public class Restaurant extends Account implements Serializable {
     @SerializedName("dchi")
     @Expose
     private String address;
@@ -22,5 +24,9 @@ public class Restaurant extends Account {
     @Override
     public String toString() {
         return super.toString() + "\nAddress: " + address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

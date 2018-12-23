@@ -9,7 +9,7 @@ public class Bill implements Serializable {
     private int idHoaDon;
     @SerializedName("gia")
     private int giaHoaDon;
-    @SerializedName("dia_chi_giao")
+    @SerializedName("dchi_giao")
     private String DiaChiaGiao;
     @SerializedName("tg_nd_dat")
     private String TGKhachHangDat;
