@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,41 +32,45 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @SuppressLint("ValidFragment")
-public class OrderNeedDelivery extends Fragment {
-    private List<BillsResponse> ds_hoa_don;
+public class OrderNeedDeliveryTab extends Fragment {
+    public List<BillsResponse> ds_hoa_don;
     private OrderNeedDeliveryRecyclerViewAdapter adapter;
     private RecylerViewClickListener mListener;
 
     private Context context;
     private RecyclerView recyclerView;
     private View view;
+
     Map<String, String> queryOptions;
 
-    public OrderNeedDelivery(Context context,RecylerViewClickListener listener) {
+
+    public OrderNeedDeliveryTab(Context context, RecylerViewClickListener listener) {
         this.context = context;
         this.mListener = listener;
     }
-    public static OrderNeedDelivery newOrderNeedDelivery(Context context, RecylerViewClickListener listener){
-        OrderNeedDelivery orderNeedDelivery = new OrderNeedDelivery(context,listener);
+
+    public static OrderNeedDeliveryTab newOrderNeedDelivery(Context context, RecylerViewClickListener listener) {
+        OrderNeedDeliveryTab orderNeedDeliveryTab = new OrderNeedDeliveryTab(context, listener);
         Bundle bundle = new Bundle();
-        orderNeedDelivery.setArguments(bundle);
-        orderNeedDelivery.setRetainInstance(true);
-        return  orderNeedDelivery;
+        orderNeedDeliveryTab.setArguments(bundle);
+        orderNeedDeliveryTab.setRetainInstance(true);
+        return orderNeedDeliveryTab;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.order_recycler_view_need_delivery,container,false);
+        view = inflater.inflate(R.layout.order_recycler_view_need_delivery, container, false);
         getMyView();
 
         initOrderNeedDeliveryView();
-        return  view;
+        return view;
     }
 
     private void initOrderNeedDeliveryView() {
@@ -76,43 +79,34 @@ public class OrderNeedDelivery extends Fragment {
             return;
         }
         setRecyclerLayoutManager();
-        loadJSON();
+        loadData();
     }
 
-    private void loadJSON() {
-        try{
-            queryOptions = new HashMap<>();
-            queryOptions.put("trangthai","1");
+    private void loadData() {
 
-            CvlApi api = RetrofitObject.getInstance().create(CvlApi.class);
-            Call<List<BillsResponse>> call = api.billNeedDelivery(queryOptions);
-            Log.e("url \n\n\n\n\n\n", call.request().url().toString());
+        queryOptions = new HashMap<>();
+        queryOptions.put("trangthai","1");
 
-            call.enqueue(new Callback<List<BillsResponse>>() {
-                @Override
-                public void onResponse(Call<List<BillsResponse>> call, Response<List<BillsResponse>> response) {
-                    ds_hoa_don = response.body();
+        CvlApi api = RetrofitObject.getInstance().create(CvlApi.class);
+        Call<List<BillsResponse>> call = api.billNeedDelivery(queryOptions);
 
-                    if(ds_hoa_don!=null){
-                        adapter = new OrderNeedDeliveryRecyclerViewAdapter(context,ds_hoa_don,mListener);
-                        recyclerView.setAdapter(adapter);
-                    }
-                }
+        call.enqueue(new Callback<List<BillsResponse>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<BillsResponse>> call, @NonNull Response<List<BillsResponse>> response) {
+                ds_hoa_don = response.body();
+                adapter = new OrderNeedDeliveryRecyclerViewAdapter(context, ds_hoa_don, mListener);
+                recyclerView.setAdapter(adapter);
+            }
 
-                @Override
-                public void onFailure(Call<List<BillsResponse>> call, Throwable t) {
-                    Toast.makeText(context, "Error Fetching Bill data\n\n\n" + t.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.e("Error\n\n\n",t.getMessage());
-                }
-            });
-        }catch (Exception e){
-            Log.e("error", e.getMessage());
-        }
+            @Override
+            public void onFailure(@NonNull Call<List<BillsResponse>> call, Throwable t) {
+                Toast.makeText(context, "Error Fetching Bill data\n\n\n" + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void getMyView() {
         recyclerView = view.findViewById(R.id.recycler_view_need_delivery);
-
     }
 
     @Override
@@ -129,6 +123,7 @@ public class OrderNeedDelivery extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
+
     protected boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

@@ -26,6 +26,19 @@ public class Bill implements Serializable {
     @SerializedName("gia_vanchuyen")
     private int giaVanCHuyen;
 
+    public Bill(int idHoaDon, int giaHoaDon, String diaChiaGiao, String TGKhachHangDat, String TGQuanAnXacNhan, String TGShipperXacNhanDon, String TGShipperXacNhanNhanHang, String TGShipperXacNhanDaGiaoHang, int trangThai, int giaVanCHuyen) {
+        this.idHoaDon = idHoaDon;
+        this.giaHoaDon = giaHoaDon;
+        DiaChiaGiao = diaChiaGiao;
+        this.TGKhachHangDat = TGKhachHangDat;
+        this.TGQuanAnXacNhan = TGQuanAnXacNhan;
+        this.TGShipperXacNhanDon = TGShipperXacNhanDon;
+        this.TGShipperXacNhanNhanHang = TGShipperXacNhanNhanHang;
+        this.TGShipperXacNhanDaGiaoHang = TGShipperXacNhanDaGiaoHang;
+        this.trangThai = trangThai;
+        this.giaVanCHuyen = giaVanCHuyen;
+    }
+
     public int getIdHoaDon() {
         return idHoaDon;
     }

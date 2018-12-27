@@ -19,6 +19,13 @@ public class BillsResponse implements Serializable {
     @SerializedName("chi_tiet")
     private List<BillDetail> chi_tiet;
 
+    public BillsResponse(Bill hoadon, User nguoidung, Restaurant quanan, List<BillDetail> chi_tiet) {
+        this.hoadon = hoadon;
+        this.nguoidung = nguoidung;
+        this.quanan = quanan;
+        this.chi_tiet = chi_tiet;
+    }
+
     public Bill getHoadon() {
         return hoadon;
     }

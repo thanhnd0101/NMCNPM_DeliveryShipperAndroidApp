@@ -23,6 +23,8 @@
         <activity
             android:theme="@style/NoActionBar"
             android:name=".ContentMainActivity"></activity>
+        <activity android:name=".NewOrderActivity"
+            android:theme="@style/NoActionBar"></activity>
     </application>
 
 </manifest>

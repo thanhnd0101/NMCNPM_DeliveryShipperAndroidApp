@@ -13,6 +13,11 @@ public class Restaurant extends Account implements Serializable {
     @Expose
     private String image_path;
 
+    public Restaurant(String address, String image_path) {
+        this.address = address;
+        this.image_path = image_path;
+    }
+
     public String getAddress() {
         return address;
     }

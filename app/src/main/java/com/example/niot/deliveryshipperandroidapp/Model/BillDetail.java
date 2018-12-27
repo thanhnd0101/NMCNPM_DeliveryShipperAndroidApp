@@ -17,6 +17,12 @@ public class BillDetail implements Serializable {
     @SerializedName("gia")
     private int gia;
 
+    public BillDetail(String ten, int soluong, int gia) {
+        this.ten = ten;
+        this.soluong = soluong;
+        this.gia = gia;
+    }
+
     /*public int getId_chi_tiet() {
         return id_chi_tiet;
     }

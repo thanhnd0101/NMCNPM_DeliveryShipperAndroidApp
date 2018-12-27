@@ -11,6 +11,11 @@ public class User extends Account{
     @Expose
     private String image_path;
 
+    public User(String address, String image_path) {
+        this.address = address;
+        this.image_path = image_path;
+    }
+
     public String getAddress() {
         return address;
     }

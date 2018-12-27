@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 if(shippers.size() > 0) {
                                     msg = shippers.get(0).toString();
-                                    LoginToShipper();
+                                    LoginToShipper(shippers.get(0).toString());
                                 }
                                 else{
                                     msg = "Wrong phone number or password!";
@@ -74,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
-    private void LoginToShipper() {
+    private void LoginToShipper(String idshipper) {
         Intent intent = new Intent(MainActivity.this,ContentMainActivity.class);
+        intent.putExtra("idShipper",idshipper);
         this.startActivity(intent);
     }
 
