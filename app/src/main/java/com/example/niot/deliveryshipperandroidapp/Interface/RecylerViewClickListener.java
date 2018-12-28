@@ -4,4 +4,5 @@ import android.view.View;
 
 public interface RecylerViewClickListener {
     void onItemClick(View view, int position);
+    void onButtonValidateDeliveryCompleted();
 }

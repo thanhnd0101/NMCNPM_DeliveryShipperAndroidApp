@@ -49,10 +49,9 @@ public class NewOrderFoodInforRecyclerViewAdapter extends RecyclerView.Adapter<R
 
     @Override
     public int getItemCount() {
-        return billsResponse.getChi_tiet().size();
+        return billsResponse.getChi_tiet() == null?0:billsResponse.getChi_tiet().size();
     }
     public void setBillsResponse(BillsResponse billsResponse){
         this.billsResponse = billsResponse;
-        notifyDataSetChanged();
     }
 }

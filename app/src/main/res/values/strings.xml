@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">DeliveryShipperAndroidApp</string>
-    <string name="login_edit_text_sdt_hint">số điện thoại</string>
+    <string name="login_edit_text_sdt_hint">Số điện thoại</string>
     <string name="login_edit_text_password_hint">Mật khẩu</string>
     <string name="login_button_dangnhap">Đăng Nhập</string>
     <string name="login_button_dangky">Đăng ký</string>

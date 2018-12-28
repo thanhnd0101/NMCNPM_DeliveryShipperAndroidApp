@@ -47,6 +47,7 @@ public class OrderNeedDeliveryViewHolder extends RecyclerView.ViewHolder{
     }
     public void setOrderNeedDeliveryViewHolder(String mahoadon,String ngaydat,String diachiquan,String diachikhach,
     String giavanchuyen){
+        mahoadon = "Đơn #" + mahoadon;
         order_item_text_view_ma_hoa_don.setText(mahoadon);
         order_item_text_view_ngay_dat.setText(ngaydat);
         order_item_text_view_dia_chi_quan.setText(diachiquan);

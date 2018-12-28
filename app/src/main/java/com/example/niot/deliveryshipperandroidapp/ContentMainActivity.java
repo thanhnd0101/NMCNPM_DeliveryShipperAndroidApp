@@ -20,6 +20,8 @@ import com.example.niot.deliveryshipperandroidapp.Model.BillDetail;
 import com.example.niot.deliveryshipperandroidapp.Model.Restaurant;
 import com.example.niot.deliveryshipperandroidapp.Model.User;
 import com.example.niot.deliveryshipperandroidapp.Response.BillsResponse;
+import com.example.niot.deliveryshipperandroidapp.Tab.OrderAccoutSettingTab;
+import com.example.niot.deliveryshipperandroidapp.Tab.OrderDeliveredTab;
 import com.example.niot.deliveryshipperandroidapp.Tab.OrderDeliveringTab;
 import com.example.niot.deliveryshipperandroidapp.Tab.OrderNeedDeliveryTab;
 
@@ -47,9 +49,10 @@ public class ContentMainActivity extends AppCompatActivity implements RecylerVie
         viewPager = findViewById(R.id.content_main_viewpager);
         tabLayout = findViewById(R.id.content_main_tab_layout);
 
-        pagerAdapter.addFragment(OrderNeedDeliveryTab.newOrderNeedDelivery(ContentMainActivity.this,this),"New Order");
+        pagerAdapter.addFragment(OrderNeedDeliveryTab.newOrderNeedDelivery(ContentMainActivity.this,this),"New Orders");
         pagerAdapter.addFragment(OrderDeliveringTab.newOrderDeliveringTabInstance(ContentMainActivity.this,this, id_shipper),"Deliviring Order");
-
+        pagerAdapter.addFragment(OrderDeliveredTab.newOrderDeliveredTab(ContentMainActivity.this,this,id_shipper),"Delivered Orders");
+        pagerAdapter.addFragment(OrderAccoutSettingTab.newOrderAccountSettingTab(),"Account");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -66,6 +69,10 @@ public class ContentMainActivity extends AppCompatActivity implements RecylerVie
         ContentMainActivity.this.startActivityForResult(intent,REQUEST_CODE_NEW_ORDER_ACTIVITY);
     }
 
+    @Override
+    public void onButtonValidateDeliveryCompleted() {
+        Objects.requireNonNull(viewPager.getAdapter()).notifyDataSetChanged();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

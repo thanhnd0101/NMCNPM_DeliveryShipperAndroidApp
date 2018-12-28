@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
 public interface CvlApi {
-    @GET("/signup/nd")
+    @GET("/signup/shipper")
     Call<List<Shipper>> newUser(@QueryMap Map<String, String> info);
 
     @GET("/login/shipper")

@@ -43,7 +43,6 @@ public class NewOrderActivity extends AppCompatActivity {
 
     private int idShipper;
 
-    private PostResponse postResponse;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,12 +76,11 @@ public class NewOrderActivity extends AppCompatActivity {
 
         CvlApi api = RetrofitObject.getInstance().create(CvlApi.class);
         Call<PostResponse> call = api.validateOrder(queryOptions);
-        Log.e("url\n\n\n",call.request().url().toString());
 
         call.enqueue(new Callback<PostResponse>() {
             @Override
             public void onResponse(@NonNull Call<PostResponse> call, @NonNull Response<PostResponse> response) {
-                postResponse = response.body();
+                PostResponse postResponse = response.body();
                 if(postResponse != null){
                     if(postResponse.getStatus() == 0){
                         validateOrder(postResponse.getStatus());
@@ -90,11 +88,9 @@ public class NewOrderActivity extends AppCompatActivity {
                         Toast.makeText(NewOrderActivity.this,"Không thể xác nhận đơn giao hàng",Toast.LENGTH_SHORT).show();
                     }
                 }
-                Log.e("win\n\n\n",call.request().url().toString());
             }
             @Override
-            public void onFailure(Call<PostResponse> call, Throwable t) {
-                Log.e("error\n\n\n",t.getMessage());
+            public void onFailure(@NonNull Call<PostResponse> call, @NonNull Throwable t) {
                 Toast.makeText(NewOrderActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });

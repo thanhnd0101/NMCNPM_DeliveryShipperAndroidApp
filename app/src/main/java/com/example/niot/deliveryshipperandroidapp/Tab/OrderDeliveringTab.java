@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.example.niot.deliveryshipperandroidapp.Adapter.NewOrderFoodInforRecyc
 import com.example.niot.deliveryshipperandroidapp.Interface.RecylerViewClickListener;
 import com.example.niot.deliveryshipperandroidapp.R;
 import com.example.niot.deliveryshipperandroidapp.Response.BillsResponse;
+import com.example.niot.deliveryshipperandroidapp.Response.PostResponse;
 import com.example.niot.deliveryshipperandroidapp.retrofit.CvlApi;
 import com.example.niot.deliveryshipperandroidapp.retrofit.RetrofitObject;
 
@@ -43,6 +45,8 @@ public class OrderDeliveringTab extends Fragment {
 
     private RecyclerView recyclerView;
 
+    private TextView textViewNew_order_detail_delivering_van_chuyen;
+    private TextView textViewNew_order_detail_delivering_tong_tien;
     private TextView textViewNew_order_detail_delivering_id_hoa_don;
     private TextView textViewNew_order_detail_delivering_thoi_gian;
     private TextView textViewNew_order_detail_delivering_dia_chi_khach;
@@ -79,9 +83,88 @@ public class OrderDeliveringTab extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.new_order_detail_delivering_layout,container,false);
         getMyView();
-
+        setButtonFunc();
         initOrderDeliveringView();
         return view;
+    }
+
+    private void setButtonFunc() {
+        buttonValidateTakenOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonValidateTakenOrder();
+            }
+        });
+        buttonValidateDeliveredOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateDeliveredOrder();
+            }
+        });
+    }
+
+    private void validateDeliveredOrder() {
+        Map<String,String> queryOptions;
+        queryOptions = new HashMap<>();
+        queryOptions.put("id_shipper",String.valueOf(idShipper));
+        queryOptions.put("id_hoa_don",String.valueOf(billsResponse.getHoadon().getIdHoaDon()));
+        queryOptions.put("trangthai","4");
+
+
+        CvlApi api = RetrofitObject.getInstance().create(CvlApi.class);
+        Call<PostResponse> call = api.validateOrder(queryOptions);
+
+        call.enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PostResponse> call, @NonNull Response<PostResponse> response) {
+                PostResponse postResponse = response.body();
+                if(postResponse != null){
+                    if(postResponse.getStatus() == 0){
+                        Toast.makeText(context,"Xác nhận giao đơn hàng thành công",Toast.LENGTH_SHORT).show();
+                        buttonValidateDeliveredOrder.setEnabled(false);
+                        mListener.onButtonValidateDeliveryCompleted();
+                    }else{
+                        Toast.makeText(context,"Không thể xác nhận giao đơn hàng thành công",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<PostResponse> call, @NonNull Throwable t) {
+                Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void buttonValidateTakenOrder() {
+        Map<String,String> queryOptions;
+        queryOptions = new HashMap<>();
+        queryOptions.put("id_shipper",String.valueOf(idShipper));
+        queryOptions.put("id_hoa_don",String.valueOf(billsResponse.getHoadon().getIdHoaDon()));
+        queryOptions.put("trangthai","3");
+
+
+        CvlApi api = RetrofitObject.getInstance().create(CvlApi.class);
+        Call<PostResponse> call = api.validateOrder(queryOptions);
+
+        call.enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<PostResponse> call, @NonNull Response<PostResponse> response) {
+                PostResponse postResponse = response.body();
+                if(postResponse != null){
+                    if(postResponse.getStatus() == 0){
+                        Toast.makeText(context,"Xác nhận lấy đơn hàng",Toast.LENGTH_SHORT).show();
+                        buttonValidateTakenOrder.setEnabled(false);
+                        buttonValidateDeliveredOrder.setEnabled(true);
+                    }else{
+                        Toast.makeText(context,"Không thể xác nhận lấy đơn hàng",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<PostResponse> call, @NonNull Throwable t) {
+                Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initOrderDeliveringView() {
@@ -90,10 +173,10 @@ public class OrderDeliveringTab extends Fragment {
             return;
         }
         setRecyclerLayoutManager();
-        loadData();
+        loadDataState3();
     }
 
-    public void loadData() {
+    public void loadDataState2() {
         queryOptions = new HashMap<>();
         queryOptions.put("shipper",String.valueOf(idShipper));
         queryOptions.put("trangthai","2");
@@ -111,8 +194,10 @@ public class OrderDeliveringTab extends Fragment {
                     if (billsResponse != null) {
                         setBillDelivering(billsResponse);
                     }
+                    buttonValidateTakenOrder.setEnabled(true);
+                    buttonValidateDeliveredOrder.setEnabled(false);
                 }else{
-                    setEnableOrDisableView(false);
+                    setEnableView(false);
                 }
             }
 
@@ -121,11 +206,43 @@ public class OrderDeliveringTab extends Fragment {
                 Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+    public void loadDataState3() {
+        queryOptions = new HashMap<>();
+        queryOptions.put("shipper",String.valueOf(idShipper));
+        queryOptions.put("trangthai","3");
 
+        CvlApi api = RetrofitObject.getInstance().create(CvlApi.class);
+
+        Call<List<BillsResponse>> call = api.billNeedDelivery(queryOptions);
+
+        call.enqueue(new Callback<List<BillsResponse>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<BillsResponse>> call, @NonNull Response<List<BillsResponse>> response) {
+                assert response.body() != null;
+                if(!response.body().isEmpty()) {
+                    billsResponse = response.body().get(response.body().size()-1);
+                    if (billsResponse != null) {
+                        setBillDelivering(billsResponse);
+                        buttonValidateTakenOrder.setEnabled(false);
+                        buttonValidateDeliveredOrder.setEnabled(true);
+                    }
+                    buttonValidateTakenOrder.setEnabled(false);
+                }else{
+                    loadDataState2();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<BillsResponse>> call, @NonNull Throwable t) {
+                Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void getMyView() {
         recyclerView = view.findViewById(R.id.recycler_view_order_detail_delivering_food);
+        textViewNew_order_detail_delivering_van_chuyen = view.findViewById(R.id.new_order_detail_delivering_van_chuyen);
+        textViewNew_order_detail_delivering_tong_tien = view.findViewById(R.id.new_order_detail_delivering_tong_tien);
         textViewNew_order_detail_delivering_id_hoa_don=view.findViewById(R.id.new_order_detail_delivering_id_hoa_don);
         textViewNew_order_detail_delivering_dia_chi_khach = view.findViewById(R.id.new_order_detail_delivering_dia_chi_khach);
         textViewNew_order_detail_delivering_dia_chi_quan = view.findViewById(R.id.new_order_detail_delivering_dia_chi_quan);
@@ -135,17 +252,22 @@ public class OrderDeliveringTab extends Fragment {
     }
 
     public void setBillDelivering(BillsResponse billDelivering){
-        setEnableOrDisableView(true);
+        billsResponse = billDelivering;
+        setEnableView(true);
         setValueBillDelivering(billDelivering);
         NewOrderFoodInforRecyclerViewAdapter adapter = new NewOrderFoodInforRecyclerViewAdapter(context,billsResponse);
         recyclerView.setAdapter(adapter);
         //view.invalidate();
     }
+
+    @SuppressLint("SetTextI18n")
     private void setValueBillDelivering(BillsResponse billDelivering){
-        textViewNew_order_detail_delivering_id_hoa_don.setText(String.valueOf(billDelivering.getHoadon().getIdHoaDon()));
+        textViewNew_order_detail_delivering_id_hoa_don.setText("Đơn #"+String.valueOf(billDelivering.getHoadon().getIdHoaDon()));
         textViewNew_order_detail_delivering_dia_chi_khach.setText(billDelivering.getHoadon().getDiaChiaGiao());
         textViewNew_order_detail_delivering_dia_chi_quan.setText(billDelivering.getQuanan().getAddress());
         textViewNew_order_detail_delivering_thoi_gian.setText(billDelivering.getHoadon().getTGKhachHangDat());
+        textViewNew_order_detail_delivering_tong_tien.setText(String.valueOf(billDelivering.getHoadon().getGiaHoaDon()));
+        textViewNew_order_detail_delivering_van_chuyen.setText(String.valueOf(billDelivering.getHoadon().getGiaVanCHuyen()));
     }
     protected boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -156,7 +278,7 @@ public class OrderDeliveringTab extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
-    private void setEnableOrDisableView(boolean enalble){
+    private void setEnableView(boolean enalble){
         textViewNew_order_detail_delivering_dia_chi_khach.setEnabled(enalble);
         textViewNew_order_detail_delivering_dia_chi_quan.setEnabled(enalble);
         textViewNew_order_detail_delivering_thoi_gian.setEnabled(enalble);

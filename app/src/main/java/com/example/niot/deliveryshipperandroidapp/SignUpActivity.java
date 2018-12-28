@@ -51,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void getInput(){
         name = nameET.getText().toString();
         phone = phoneET.getText().toString();
-        password = phoneET.getText().toString();
+        password = passwordET.getText().toString();
         email = emailET.getText().toString();
         cmnd = cmndET.getText().toString();
     }
@@ -81,11 +81,13 @@ public class SignUpActivity extends AppCompatActivity {
             Retrofit retrofit = RetrofitObject.getInstance();
 
             Map<String, String> info = new HashMap<String, String>();
-            info.put("phone", phone);
-            info.put("ten", name);
             info.put("cmnd",cmnd);
-            info.put("pass", password);
             info.put("email", email);
+            info.put("sdt", phone);
+            info.put("ten", name);
+            info.put("pass", password);
+
+
 
             retrofit.create(CvlApi.class).newUser(info).enqueue(new Callback<List<Shipper>>() {
 
