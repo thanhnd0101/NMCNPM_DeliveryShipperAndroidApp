@@ -16,6 +16,7 @@ import com.example.niot.deliveryshipperandroidapp.retrofit.RetrofitObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public void loginBtnClicked(View view) {
         Retrofit retrofit = RetrofitObject.getInstance();
         GetUsernamePassword();
-        Map<String, String> info = new HashMap<String, String>();
+        Map<String, String> info = new HashMap<>();
         info.put("pass", password);
         info.put("sdt", phone_number);
 
@@ -60,18 +61,18 @@ public class MainActivity extends AppCompatActivity {
                             }
                             else
                                 msg = "Something is wrong with our server, please try next time!";
-                            Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
-                        public void onFailure(Call<List<Shipper>> call, Throwable t) {
+                        public void onFailure(@NonNull Call<List<Shipper>> call, @NonNull Throwable t) {
                             Toast.makeText(MainActivity.this, "Request failed! Check your connection and try again.", Toast.LENGTH_SHORT).show();
                         }
                     });
 
         // Hide the keyboard if user click button
         InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), 0);
     }
 
     private void LoginToShipper(String idshipper) {

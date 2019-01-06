@@ -12,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TableLayout;
 
 import com.example.niot.deliveryshipperandroidapp.Adapter.PagerAdapter;
 import com.example.niot.deliveryshipperandroidapp.Interface.RecylerViewClickListener;
@@ -38,6 +39,8 @@ public class ContentMainActivity extends AppCompatActivity implements RecylerVie
     TabLayout tabLayout;
     private int id_shipper;
     BillsResponse billsResponse;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,13 +52,18 @@ public class ContentMainActivity extends AppCompatActivity implements RecylerVie
         viewPager = findViewById(R.id.content_main_viewpager);
         tabLayout = findViewById(R.id.content_main_tab_layout);
 
-        pagerAdapter.addFragment(OrderNeedDeliveryTab.newOrderNeedDelivery(ContentMainActivity.this,this),"New Orders");
+        pagerAdapter.addFragment(OrderNeedDeliveryTab.newOrderNeedDelivery(ContentMainActivity.this,this),"Orders");
         pagerAdapter.addFragment(OrderDeliveringTab.newOrderDeliveringTabInstance(ContentMainActivity.this,this, id_shipper),"Deliviring Order");
         pagerAdapter.addFragment(OrderDeliveredTab.newOrderDeliveredTab(ContentMainActivity.this,this,id_shipper),"Delivered Orders");
         pagerAdapter.addFragment(OrderAccoutSettingTab.newOrderAccountSettingTab(),"Account");
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        for(int i=0;i<tabLayout.getTabCount();++i){
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            assert tab != null;
+            tab.setCustomView(pagerAdapter.getTabView(ContentMainActivity.this,i));
+        }
     }
 
 

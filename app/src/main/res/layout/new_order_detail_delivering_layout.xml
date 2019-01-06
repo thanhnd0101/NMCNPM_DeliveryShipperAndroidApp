@@ -13,6 +13,8 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:textStyle="bold"
+        android:textSize="30sp"
+        android:textColor="@color/secondary_label"
         android:id="@+id/new_order_detail_delivering_id_hoa_don"/>
 
     <LinearLayout
@@ -23,23 +25,23 @@
         android:weightSum="10">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="4"
             android:text="Địa Chỉ Khách"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="NestedWeights"
+            android:textColor="@color/primary_label"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="4" />
 
         <TextView
             android:id="@+id/new_order_detail_delivering_thoi_gian"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_weight="1"
+            android:gravity="end"
+            android:layout_weight="6"
             android:text="ngay thang nam"
             android:textStyle="italic" />
     </LinearLayout>
@@ -49,35 +51,24 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text=""
         android:textStyle="bold" />
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="Địa Chỉ Quán"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="4" />
-    </LinearLayout>
+        android:text="Địa Chỉ Quán"
+        android:textColor="@color/primary_label"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="NestedWeights" />
 
     <TextView
         android:id="@+id/new_order_detail_delivering_dia_chi_quan"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text=""
         android:textStyle="bold" />
 
     <TextView
@@ -85,7 +76,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="Món Gọi"
-        android:textStyle="bold" />
+        android:textSize="20sp"
+        android:textColor="@color/primary_label"
+        android:textStyle="bold"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_order_detail_delivering_food"
@@ -102,24 +95,21 @@
         android:weightSum="10">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:text="Tổng tiền"
+            android:textColor="@color/primary_label"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="4" />
+            tools:ignore="NestedWeights"/>
 
         <TextView
             android:id="@+id/new_order_detail_delivering_tong_tien"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_weight="1"
+            android:gravity="end"
+            android:layout_weight="6"
             android:textStyle="italic" />
     </LinearLayout>
     <LinearLayout
@@ -130,46 +120,45 @@
         android:weightSum="10">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:text="Giá vận chuyển"
+            android:textColor="@color/primary_label"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="4" />
+            tools:ignore="NestedWeights"/>
 
         <TextView
             android:id="@+id/new_order_detail_delivering_van_chuyen"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_weight="1"
+            android:gravity="end"
+            android:layout_weight="6"
             android:textStyle="italic" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <Button
             android:text="Xác nhận nhận hàng"
             android:id="@+id/buttonValidateTakenOrder"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             tools:ignore="ButtonStyle,NestedWeights" />
 
         <Button
-            android:text="Xác nhận giao hàng thành công"
+            android:text="Giao hàng thành công"
             android:id="@+id/buttonValidateDeliveredOrder"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle"
+            android:textSize="13sp"/>
     </LinearLayout>
 </LinearLayout>

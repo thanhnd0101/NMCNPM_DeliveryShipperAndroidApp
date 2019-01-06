@@ -39,6 +39,8 @@ public class NewOrderActivity extends AppCompatActivity {
     private TextView textViewNew_order_detail_thoi_gian;
     private TextView textViewNew_order_detail_dia_chi_khach;
     private TextView textViewNew_order_detail_dia_chi_quan;
+    private TextView textViewNew_order_detail_gia_van_chuyen;
+    private TextView textViewNew_order_detail_tong_tien;
     private Button buttonAcceptOrder;
 
     private int idShipper;
@@ -112,6 +114,8 @@ public class NewOrderActivity extends AppCompatActivity {
         textViewNew_order_detail_dia_chi_khach = findViewById(R.id.new_order_detail_dia_chi_khach);
         textViewNew_order_detail_dia_chi_quan = findViewById(R.id.new_order_detail_dia_chi_quan);
         textViewNew_order_detail_thoi_gian = findViewById(R.id.new_order_detail_thoi_gian);
+        textViewNew_order_detail_gia_van_chuyen = findViewById(R.id.new_order_detail_gia_van_chuyen);
+        textViewNew_order_detail_tong_tien = findViewById(R.id.new_order_detail_tong_tien);
         buttonAcceptOrder = findViewById(R.id.buttonAcceptOrder);
     }
 
@@ -129,6 +133,8 @@ public class NewOrderActivity extends AppCompatActivity {
         textViewNew_order_detail_thoi_gian.setText(billsResponse.getHoadon().getTGKhachHangDat());
         textViewNew_order_detail_dia_chi_khach.setText(billsResponse.getHoadon().getDiaChiaGiao());
         textViewNew_order_detail_dia_chi_quan.setText(billsResponse.getQuanan().getAddress());
+        textViewNew_order_detail_tong_tien.setText(String.valueOf(billsResponse.getHoadon().getGiaHoaDon()));
+        textViewNew_order_detail_gia_van_chuyen.setText(String.valueOf(billsResponse.getHoadon().getGiaVanCHuyen()));
         NewOrderFoodInforRecyclerViewAdapter adapter = new NewOrderFoodInforRecyclerViewAdapter(NewOrderActivity.this,billsResponse);
         recyclerView.setAdapter(adapter);
     }

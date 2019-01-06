@@ -10,80 +10,89 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/backgroundText"/>
+        android:background="@color/backgroundText" />
 
     <TextView
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="Thông tin cá nhân"
         android:textSize="20sp"
         android:textStyle="bold" />
+
     <TextView
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="Quản lý đơn hàng"
         android:textSize="20sp"
         android:textStyle="bold" />
+
     <TextView
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="Xem báo cáo"
         android:textSize="20sp"
         android:textStyle="bold" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/backgroundText"/>
+        android:background="@color/backgroundText" />
+
     <TextView
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="Góp ý"
         android:textSize="20sp"
         android:textStyle="bold" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/backgroundText"/>
+        android:background="@color/backgroundText" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="3">
+
         <TextView
-            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Ngôn ngữ"
+            android:layout_weight="1"
             android:gravity="center_vertical"
+            android:text="Ngôn ngữ"
             android:textSize="20sp"
             android:textStyle="bold" />
+
         <TextView
-            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
         <TextView
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
             android:text="Tiếng Việt"
             android:textAlignment="textEnd"
-            android:gravity="center_vertical"
             android:textSize="15sp"
             android:textStyle="italic"
             tools:ignore="RtlCompat" />
     </LinearLayout>
 
     <TextView
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:text="Cài đặt thông báo"
         android:textSize="20sp"
         android:textStyle="bold" />

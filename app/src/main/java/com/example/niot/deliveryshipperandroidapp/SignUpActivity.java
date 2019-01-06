@@ -1,8 +1,10 @@
 package com.example.niot.deliveryshipperandroidapp;
 
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -46,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordET = findViewById(R.id.passwordEdit);
         emailET = findViewById(R.id.emailEdit);
         cmndET = findViewById(R.id.cmndEdit);
+
     }
 
     private void getInput(){
@@ -58,9 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean checkInput(){
         getInput();
-        if(name.isEmpty() || phone.isEmpty() || password.isEmpty() || email.isEmpty())
-            return false;
-        return true;
+        return !name.isEmpty() && !phone.isEmpty() && !password.isEmpty() && !email.isEmpty();
     }
 
 
@@ -80,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
         else{
             Retrofit retrofit = RetrofitObject.getInstance();
 
-            Map<String, String> info = new HashMap<String, String>();
+            Map<String, String> info = new HashMap<>();
             info.put("cmnd",cmnd);
             info.put("email", email);
             info.put("sdt", phone);
@@ -92,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
             retrofit.create(CvlApi.class).newUser(info).enqueue(new Callback<List<Shipper>>() {
 
                 @Override
-                public void onResponse(Call<List<Shipper>> call, Response<List<Shipper>> response) {
+                public void onResponse(@NonNull Call<List<Shipper>> call, @NonNull Response<List<Shipper>> response) {
                     String msg;
                     if(response.body() != null){
                         if(response.body().size() > 0)
@@ -106,7 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<List<Shipper>> call, Throwable t) {
+                public void onFailure(@NonNull Call<List<Shipper>> call, @NonNull Throwable t) {
                     Toast.makeText(SignUpActivity.this, "Failed3!", Toast.LENGTH_SHORT).show();
 
                     if (t instanceof IOException) {
@@ -121,4 +122,5 @@ public class SignUpActivity extends AppCompatActivity {
             });
         }
     }
-}
+
+   }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <android.support.v7.widget.RecyclerView
+        android:layout_weight="19"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:id="@+id/order_delivered_recycler_view"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="Tổng tiền vận chuyển"
+            android:textColor="@color/primary_label"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:ignore="NestedWeights" />
+
+        <TextView
+            android:id="@+id/order_delivered_tong_tien_van_chuyen"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layout_weight="5"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+</LinearLayout>

@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.niot.deliveryshipperandroidapp.Adapter.OrderNeedDeliveryRecyclerViewAdapter;
@@ -35,6 +36,7 @@ public class OrderDeliveredTab extends Fragment {
     private Context context;
     private RecylerViewClickListener mListener;
     private RecyclerView recyclerView;
+    private TextView textView_order_delivered_tong_tien_van_chuyen;
     private View view;
 
     private List<BillsResponse> ds_hoa_don;
@@ -63,7 +65,7 @@ public class OrderDeliveredTab extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.order_recycler_view_need_delivery,container,false);
+        view = inflater.inflate(R.layout.order_delivered_layout,container,false);
         getMyView();
 
         initOrderDeliveredView();
@@ -92,8 +94,11 @@ public class OrderDeliveredTab extends Fragment {
             @Override
             public void onResponse(@NonNull Call<List<BillsResponse>> call, @NonNull Response<List<BillsResponse>> response) {
                 ds_hoa_don = response.body();
-                adapter = new OrderNeedDeliveryRecyclerViewAdapter(context, ds_hoa_don, mListener);
+                adapter = new OrderNeedDeliveryRecyclerViewAdapter(context, ds_hoa_don, null);
                 recyclerView.setAdapter(adapter);
+                textView_order_delivered_tong_tien_van_chuyen.setText(
+                        String.valueOf(calculateSumOfDeliveredOrder(ds_hoa_don))
+                );
             }
 
             @Override
@@ -104,8 +109,17 @@ public class OrderDeliveredTab extends Fragment {
 
     }
 
+    private int calculateSumOfDeliveredOrder(List<BillsResponse> billsResponses) {
+        int money = 0;
+        for(int i = 0;i< billsResponses.size();++i){
+            money += billsResponses.get(i).getHoadon().getGiaVanCHuyen();
+        }
+        return money;
+    }
+
     private void getMyView() {
-        recyclerView = view.findViewById(R.id.recycler_view_need_delivery);
+        recyclerView = view.findViewById(R.id.order_delivered_recycler_view);
+        textView_order_delivered_tong_tien_van_chuyen = view.findViewById(R.id.order_delivered_tong_tien_van_chuyen);
     }
     protected boolean isOnline() {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

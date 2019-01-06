@@ -14,6 +14,7 @@ public class OrderNeedDeliveryViewHolder extends RecyclerView.ViewHolder{
     private TextView order_item_text_view_dia_chi_quan;
     private TextView order_item_text_view_dia_chi_khach;
     private TextView order_item_text_view_gia_van_chuyen;
+    private TextView order_item_text_view_gia_hoa_don;
 
     private RecylerViewClickListener mlistener;
 
@@ -44,14 +45,17 @@ public class OrderNeedDeliveryViewHolder extends RecyclerView.ViewHolder{
         order_item_text_view_dia_chi_quan = itemView.findViewById(R.id.order_item_text_view_dia_chi_quan);
         order_item_text_view_dia_chi_khach = itemView.findViewById(R.id.order_item_text_view_dia_chi_khach);
         order_item_text_view_gia_van_chuyen = itemView.findViewById(R.id.order_item_text_view_gia_van_chuyen);
+        order_item_text_view_gia_hoa_don = itemView.findViewById(R.id.order_item_text_view_gia_hoa_don);
     }
     public void setOrderNeedDeliveryViewHolder(String mahoadon,String ngaydat,String diachiquan,String diachikhach,
-    String giavanchuyen){
+    String giahoadon, String giavanchuyen){
         mahoadon = "Đơn #" + mahoadon;
         order_item_text_view_ma_hoa_don.setText(mahoadon);
         order_item_text_view_ngay_dat.setText(ngaydat);
         order_item_text_view_dia_chi_quan.setText(diachiquan);
         order_item_text_view_dia_chi_khach.setText(diachikhach);
+        order_item_text_view_gia_hoa_don.setText(giahoadon);
         order_item_text_view_gia_van_chuyen.setText(giavanchuyen);
+
     }
 }
